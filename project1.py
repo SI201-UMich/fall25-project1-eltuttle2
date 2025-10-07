@@ -19,3 +19,25 @@ def read_csv_file(filename):
                 row['bill_length_mm'] = None
             data.append(row)
     return data
+def average_bill_length_per_species(data):
+    """
+    Calculates average bill length per species.
+    """
+    species_totals = {}
+    species_counts = {}
+
+    for row in data:
+        species = row['species']
+        bill_length = row['bill_length_mm']
+        if species and bill_length is not None:
+            if species in species_totals:
+                species_totals[species] += bill_length
+                species_counts[species] += 1
+            else:
+                species_totals[species] = bill_length
+                species_counts[species] = 1
+    averages = {}
+    for species in species_totals:
+        averages[species] = species_totals[species] / species_counts[species]
+
+    return averages
