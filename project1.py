@@ -41,3 +41,17 @@ def average_bill_length_per_species(data):
         averages[species] = species_totals[species] / species_counts[species]
 
     return averages
+def main():
+    """
+    Main function to run the program.
+    """
+    filename = "penguins.csv"
+    data = read_csv_file(filename)
+    averages = average_bill_length_per_species(data)
+    print("Average bill length per species:")
+    for species, avg in averages.items():
+        print(f"{species}: {avg:.2f}")
+
+
+if __name__ == "__main__":
+    main()
