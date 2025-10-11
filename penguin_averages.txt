@@ -1,0 +1,9 @@
+Average bill length per species:
+Adelie: 38.79139072847684
+Gentoo: 47.504878048780476
+Chinstrap: 48.83382352941177
+
+Average flipper length per species:
+Adelie: 189.95364238410596
+Gentoo: 217.1869918699187
+Chinstrap: 195.8235294117647

@@ -68,9 +68,22 @@ def average_flipper_length_per_species(data):
         averages[species] = species_totals[species] / species_counts[species]
     return averages
 
+def write_averages_to_file(bill_averages, flipper_averages, filename):
+    """
+    writes the bill and flipper averages to a text file
+    """
+    with open(filename, 'w') as file:
+        file.write("Average bill length per species:\n")
+        for species, avg in bill_averages.items():
+            file.write(f"{species}: {avg}\n")
+        
+        file.write("\nAverage flipper length per species:\n")
+        for species, avg in flipper_averages.items():
+            file.write(f"{species}: {avg}\n")
+
 def main():
     """
-    main function to read data and print averages
+    main function to read data, print averages, and write to a file
     """
     filename = 'penguins.csv'
     data = read_csv_file(filename)
@@ -85,6 +98,10 @@ def main():
     print("\nAverage flipper length per species:")
     for species, avg in flipper_averages.items():
         print(f"{species}: {avg}")
+    
+    output_filename = 'penguin_averages.txt'
+    write_averages_to_file(bill_averages, flipper_averages, output_filename)
+    print(f"\nAverages written to {output_filename}")
 
 class TestPenguinsFunctions(unittest.TestCase):
     """
@@ -110,5 +127,5 @@ class TestPenguinsFunctions(unittest.TestCase):
         self.assertAlmostEqual(result['Gentoo'], (210 + 220)/2)
 
 if __name__ == "__main__":
-    #main()
-    unittest.main()
+    main()
+    # unittest.main()
