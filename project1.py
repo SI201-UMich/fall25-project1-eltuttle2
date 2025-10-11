@@ -5,7 +5,7 @@
 
 def read_csv_file(filename):
     """
-    Reads a CSV file and returns a list of dictionaries,
+    reads CSV file and returns a list of dictionaries,
     cleaning extra quotation marks from headers and values.
     """
     data = []
@@ -23,7 +23,7 @@ def read_csv_file(filename):
 
 def average_bill_length_per_species(data):
     """
-    Calculates the average bill length per species.
+    calculates the average bill length per species
     """
     species_totals = {}
     species_counts = {}
@@ -45,15 +45,46 @@ def average_bill_length_per_species(data):
     return averages
 
 
+def average_flipper_length_per_species(data):
+    """
+    calculates the average flipper length per species
+    """
+    species_totals = {}
+    species_counts = {}
+    for row in data:
+        species = row.get('species', '')
+        flipper_length = row.get('flipper_length_mm', '')
+        if species == '' or flipper_length == '' or flipper_length == 'NA':
+            continue
+        flipper_length = float(flipper_length)
+        if species in species_totals:
+            species_totals[species] += flipper_length
+            species_counts[species] += 1
+        else:
+            species_totals[species] = flipper_length
+            species_counts[species] = 1
+    averages = {}
+    for species in species_totals:
+        averages[species] = species_totals[species] / species_counts[species]
+    return averages
+
+
 def main():
     """
-    Main function to read data and print average bill lengths per species.
+    main function to read data and print averages per species
     """
     filename = 'penguins.csv'
     data = read_csv_file(filename)
-    averages = average_bill_length_per_species(data)
+
+    bill_averages = average_bill_length_per_species(data)
+    flipper_averages = average_flipper_length_per_species(data)
+
     print("Average bill length per species:")
-    for species, avg in averages.items():
+    for species, avg in bill_averages.items():
+        print(f"{species}: {avg}")
+
+    print("\nAverage flipper length per species:")
+    for species, avg in flipper_averages.items():
         print(f"{species}: {avg}")
 
 
